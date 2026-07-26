@@ -1,1 +1,8 @@
+#C-ROOM
+NAME: C
+TYPE: CORE-CLUSTER
+MODE: RESPO
+TMP-COUNT: 34
+STATE: ACTIVE
+DESCRIPTION: Zentraler Cluster-Raum für TMP-Module und RESPO-Scans.
 
