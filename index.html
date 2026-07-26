@@ -1,114 +1,70 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>C · CORE-CLUSTER · RESPO</title>
-
+<title>C · OPERATOR-CLUSTER</title>
 <style>
-  body { background:#000; color:#00ffff; font-family:Consolas; padding:20px; }
-  h1 { color:#33ccff; text-shadow:0 0 10px #00ffff; }
-  .panel { background:#111; border:1px solid #333; padding:15px; margin:20px 0; border-radius:8px; }
-  pre { background:#000; border:1px solid #333; padding:12px; border-radius:6px; white-space:pre-wrap; }
+body { font-family: Arial; background:#111; color:#eee; }
+h1 { color:#6cf; }
+.section { margin-bottom:20px; padding:10px; border:1px solid #333; }
+pre { background:#222; padding:10px; }
 </style>
+</head>
+<body>
 
-<script>
-async function load(path){
-  try{
-    const r = await fetch("./" + path);
-    if(!r.ok) return null;
-    return await r.text();
-  }catch(e){
-    return null;
-  }
-}
+<h1>C · OPERATOR-CLUSTER</h1>
 
-function vector(content){
-  return {
-    LEN: content.length,
-    LINES: content.split("\n").length,
-    STATE: content.includes("ERR") ? "kritisch" : "neutral"
-  };
-}
+<div class="section">
+  <h2>QI (Pipeline 3)</h2>
+  <pre id="qiOut">QI wird geladen…</pre>
+</div>
 
-function status(content){
-  if(!content) return "FEHLT";
-  if(content.includes("ERR")) return "ORANGE";
-  return "GRÜN";
-}
+<div class="section">
+  <h2>IQQ (Pipeline 6)</h2>
+  <pre id="iqqOut">IQQ wird geladen…</pre>
+</div>
 
-async function start(){
+<div class="section">
+  <h2>C-Operatoren</h2>
+  <pre id="cOps">Operatoren werden geladen…</pre>
+</div>
 
-  const FILES = [
-    "C.room",
-    "README.md",
-    "id.html",
+<script type="module">
+import { QI } from "../CUBE-MIND/Pipeline 3/QI.js";
+import { IQQ } from "../CUBE-MIND/Pipeline 6/IQQ.js";
 
-    // TMP-Cluster
-    "RESPO_ARG_SCAN.tmp",
+window.onload = () => {
+
+  // QI ausführen
+  const qiResult = QI();
+  document.getElementById("qiOut").innerText =
+    JSON.stringify(qiResult, null, 2);
+
+  // IQQ ausführen
+  const iqqResult = IQQ();
+  document.getElementById("iqqOut").innerText =
+    JSON.stringify(iqqResult, null, 2);
+
+  // C-Operatoren anzeigen
+  const ops = [
+    "SCAN.tmp",
+    "ARG.tmp",
     "SCHACH.tmp",
-    "arg.tmp",
-    "bauer.tmp",
-    "c.tmp",
-    "dame.tmp",
-    "edit.tmp",
-    "error.tmp",
-    "fit.tmp",
-    "help.tmp",
-    "in.tmp",
-    "morph.tmp",
-    "nord.tmp",
-    "octa.tmp",
-    "operator.tmp",
-    "ost.tmp",
-    "pferd.tmp",
-    "q.tmp",
-    "schachac.tmp",
-    "score.tmp",
-    "skat.tmp",
-    "sued.tmp",
-    "tetriz.tmp",
-    "tmp.a",
-    "tmp.e",
-    "tmp.g",
-    "tmp.h",
-    "tmp.o",
-    "tmp.po.raer.tmp",
-    "tmp.s",
-    "up.tmp",
-    "west.tmp",
-    "x.tmp",
-    "xarg.tmp",
-    "z.tmp"
+    "OCTA.tmp",
+    "NORD.tmp",
+    "OST.tmp",
+    "SUED.tmp",
+    "WEST.tmp",
+    "MORPH.tmp",
+    "ERROR.tmp",
+    "FIT.tmp",
+    "SCORE.tmp"
   ];
 
-  const out = document.getElementById("out");
-
-  for(const f of FILES){
-    const content = await load(f);
-    const vec = vector(content || "");
-
-    const div = document.createElement("div");
-    div.className = "panel";
-    div.innerHTML = `
-      <h2>${f} — ${status(content)}</h2>
-      <pre>${content ? content.substring(0,300) : "FEHLT"}</pre>
-      <pre>
-Länge: ${vec.LEN}
-Zeilen: ${vec.LINES}
-Status: ${vec.STATE}
-      </pre>
-    `;
-    out.appendChild(div);
-  }
-}
+  document.getElementById("cOps").innerText =
+    JSON.stringify(ops, null, 2);
+};
 </script>
-</head>
-
-<body onload="start()">
-
-<h1>C · CORE-CLUSTER · RESPO</h1>
-
-<div id="out"></div>
 
 </body>
 </html>
