@@ -1,0 +1,4 @@
+START = UNLINEAR
+DIM   = 6D
+EXT   = 12D
+CALL  = continium.room
