@@ -12,3 +12,12 @@ Zentrum: C
 Orbit: E
 Diagonal: KI
 Basis: T / X / Y
+COIN-SCHACH
+-----------
+Typ: Kampf-Schach
+Brett: 9×9
+Sieg: Punkte, KO, Damage — nicht Matt
+Zugwertung: Score-System
+Bonus: Schäferzug = +1024
+Bewertung: Professionalität, Redundanz, Risiko
+Mechanik: Boxkampf-Prinzip
