@@ -1,4 +1,6 @@
-START = UNLINEAR
-DIM   = 6D
-EXT   = 12D
-CALL  = continium.room
+CONTINUUM:
+BASE = 6D
+EXT  = 12D
+FULL = 12D
+
+CALL = Q.room
