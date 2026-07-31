@@ -1,7 +1,5 @@
-# Q.room – Quantum Startraum
-
 START = UNLINEAR
-DIM = 6D
-EXT = 12D
-MODE = AIRCHESS
+DIM   = 6D
+EXT   = 12D
+
 CALL = QI.room
