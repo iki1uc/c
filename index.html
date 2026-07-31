@@ -3,11 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>C · INDEX</title>
+
 <style>
 body { font-family: Arial; background:#111; color:#eee; }
 h1 { color:#6cf; }
 .section { margin-bottom:20px; padding:10px; border:1px solid #333; }
 pre { background:#222; padding:10px; }
+#board { margin-top:20px; }
+.cell {
+  width:40px; height:40px; display:inline-block;
+  border:1px solid #333; text-align:center; line-height:40px;
+}
 </style>
 </head>
 <body>
@@ -29,37 +35,82 @@ pre { background:#222; padding:10px; }
   <pre id="opsOut">Operatoren werden geladen…</pre>
 </div>
 
+<div class="section">
+  <h2>9×9 COIN-SCHACH</h2>
+  <div id="board"></div>
+</div>
+
+<div class="section">
+  <h2>Score</h2>
+  <pre id="score"></pre>
+</div>
+
+<div class="section">
+  <h2>Operator</h2>
+  <pre id="operator"></pre>
+</div>
+
+<div class="section">
+  <h2>Status</h2>
+  <pre id="status"></pre>
+</div>
+
 <script type="module">
+
+// Pipeline Imports
 import { QI } from "../CUBE-MIND/Pipeline 3/QI.js";
 import { IQQ } from "../CUBE-MIND/Pipeline 6/IQQ.js";
 
+// CSV/TMP Loader
+import { loadCSV, loadTMP } from "./JS/loader.js";
+
+// Renderer
+import { renderBoard9x9, renderScore, renderOperator, renderStatus } from "./JS/renderer.js";
+
 window.onload = () => {
 
-  // QI ausführen
+  // QI
   const qiResult = QI();
   document.getElementById("qiOut").innerText =
     JSON.stringify(qiResult, null, 2);
 
-  // IQQ ausführen
+  // IQQ
   const iqqResult = IQQ();
   document.getElementById("iqqOut").innerText =
     JSON.stringify(iqqResult, null, 2);
 
-  // Operatoren aus dem Ordner C
-  const ops = [
-    "SCAN.tmp", "ARG.tmp", "TMP.a", "TMP.e", "TMP.g", "TMP.h",
-    "TMP.o", "TMP.s", "TMP.po.raer.tmp",
-    "SCHACH.tmp", "schachac.tmp",
-    "bauer.tmp", "dame.tmp", "pferd.tmp", "tetriz.tmp", "skat.tmp",
-    "nord.tmp", "ost.tmp", "sued.tmp", "west.tmp",
-    "up.tmp", "in.tmp", "x.tmp", "xarg.tmp", "z.tmp",
-    "morph.tmp", "error.tmp", "fit.tmp", "score.tmp",
-    "octa.tmp", "operator.tmp"
-  ];
+  // CSV laden
+  loadCSV("axiom-rolle-6.csv");
+  loadCSV("axiom-wert-6.csv");
+  loadCSV("figur-axiom-6.csv");
+  loadCSV("zug-axiom-4.csv");
+  loadCSV("siegtyp-bedingung-4.csv");
 
+  // TMP laden
+  loadTMP("SCHACH.tmp");
+  loadTMP("schachac.tmp");
+  loadTMP("score.tmp");
+  loadTMP("operator.tmp");
+  loadTMP("tetriz.tmp");
+
+  loadTMP("bauer.tmp");
+  loadTMP("pferd.tmp");
+  loadTMP("laufer.tmp");
+  loadTMP("turm.tmp");
+  loadTMP("dame.tmp");
+  loadTMP("König.tmp");
+
+  // Render
+  renderBoard9x9("board");
+  renderScore("score");
+  renderOperator("operator");
+  renderStatus("status");
+
+  // Operatoren anzeigen
   document.getElementById("opsOut").innerText =
-    JSON.stringify(ops, null, 2);
+    JSON.stringify(window.ops || {}, null, 2);
 };
+
 </script>
 
 </body>
