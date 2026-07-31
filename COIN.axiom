@@ -1,0 +1,14 @@
+COIN-AXIOM-FINAL
+----------------
+R1: T-Axiom (Halt)
+R2: X-Axiom (Verbindung)
+R3: Y-Axiom (Richtung)
+R4: C-Axiom (Konstellation)
+R5: KI-Axiom (Intelligenz)
+R6: E-Axiom (Energie / Orbit)
+
+Matrix: 9×9
+Zentrum: C
+Orbit: E
+Diagonal: KI
+Basis: T / X / Y
